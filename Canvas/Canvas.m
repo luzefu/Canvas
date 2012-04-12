@@ -28,9 +28,12 @@
 @end
 
 @implementation Canvas
-
+//gesture recognization
+@synthesize gestureRecognizer = _gestureRecognizer;
+@synthesize isViewTouched = _isViewTouched;
+//need to be discuessed
 @synthesize unchangableImage = _unchangableImage;
-
+//points
 @synthesize currentPoint = _currentPoint;
 @synthesize previousPointOne = _previousPointOne;
 @synthesize previousPointTwo = _previousPointTwo;
@@ -40,14 +43,20 @@
 @synthesize p1p2 = _p1p2;
 @synthesize p2p1 = _p2p1;
 @synthesize p2p2 = _p2p2;
-
+//speed vectors
 @synthesize veloVector = _veloVector;
 @synthesize isVectorXNegative = _isVectorXNegative;
-
-@synthesize isViewTouched = _isViewTouched;
-
+//variables
 @synthesize colorForStroke = _colorForStroke;
 @synthesize radiusForStroke = _radiusForStroke;
+
+- (UIPanGestureRecognizer*)gestureRecognizer
+{
+    if (_gestureRecognizer == nil) {
+        _gestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];
+    }
+    return _gestureRecognizer;
+}
 
 - (UIImageView*)unchangableImage
 {
@@ -75,6 +84,7 @@
 
 - (void) setup{
     self.contentMode = UIViewContentModeRedraw;
+    [self addGestureRecognizer:self.gestureRecognizer];
 }
 
 - (void) awakeFromNib{

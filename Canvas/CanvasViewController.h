@@ -11,6 +11,7 @@
 
 @interface CanvasViewController : UIViewController
 
+@property (nonatomic,strong) IBOutlet UIView* imageView;
 
-
+- (IBAction)testButtonPressed;
 @end

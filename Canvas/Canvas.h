@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface Canvas : UIView
-
+//gesture recognization
+@property (nonatomic,strong) UIPanGestureRecognizer* gestureRecognizer;
 - (void)pan:(UIPanGestureRecognizer *)gesture;
-
+//variables
 @property (nonatomic,strong) UIColor* colorForStroke;
 @property (nonatomic) CGFloat radiusForStroke;
-
+//need to be discuessed
 @property (nonatomic,strong) UIImageView* unchangableImage;
 
 @end
