@@ -7,54 +7,55 @@
 //
 
 #import "CanvasViewController.h"
+@interface CanvasViewController ()
+
+@property (nonatomic,strong) NSArray* canvasArray;
+//color setting for canvas
+@property (nonatomic) float red;
+@property (nonatomic) float green;
+@property (nonatomic) float blue;
+@property (nonatomic) float transparency;
+
+@end
 
 @implementation CanvasViewController
 
-- (void)didReceiveMemoryWarning
+@synthesize canvasArray = _canvasArray;
+//color setting for canvas
+@synthesize red = _red;
+@synthesize green = _green;
+@synthesize blue = _blue;
+@synthesize transparency = _transparency;
+
+- (NSArray*)canvasArray
 {
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
+    if (_canvasArray == nil) {
+        _canvasArray = [[NSArray alloc]init];
+        for (int i = 0; i < 10; i++) {
+            Canvas *newCanvas = [[Canvas alloc]initWithFrame:self.view.bounds];
+            newCanvas.tag = i + 1;
+            _canvasArray = [_canvasArray arrayByAddingObject:newCanvas];
+        }
+    }
+    return _canvasArray;
 }
 
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
+- (void)refreshSettings
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
+    //refresh color data
+    self.red = 1;
+    self.green = 1;
+    self.blue = 1;
+    self.transparency = 1;
+    //test
+    [[self.canvasArray objectAtIndex:1] setBackgroundColor:[UIColor whiteColor]];
+    [[self.canvasArray objectAtIndex:2] setBackgroundColor:[UIColor redColor]];
+    [[self.canvasArray objectAtIndex:3] setBackgroundColor:[UIColor blackColor]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
     return YES;
 }
-
 @end
+

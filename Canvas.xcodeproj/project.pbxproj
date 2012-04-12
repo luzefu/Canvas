@@ -15,6 +15,7 @@
 		B215AE3D153688D900B07BEF /* CanvasAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B215AE3C153688D900B07BEF /* CanvasAppDelegate.m */; };
 		B215AE40153688D900B07BEF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B215AE3E153688D900B07BEF /* MainStoryboard.storyboard */; };
 		B215AE43153688D900B07BEF /* CanvasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B215AE42153688D900B07BEF /* CanvasViewController.m */; };
+		B215AE4B1536891A00B07BEF /* Canvas.m in Sources */ = {isa = PBXBuildFile; fileRef = B215AE4A1536891A00B07BEF /* Canvas.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,15 +23,17 @@
 		B215AE2C153688D900B07BEF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B215AE2E153688D900B07BEF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B215AE30153688D900B07BEF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		B215AE34153688D900B07BEF /* Canvas-Info.plist */ = {isa = PBXFileReference; path = "Canvas-Info.plist"; sourceTree = "<group>"; };
+		B215AE34153688D900B07BEF /* Canvas-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Canvas-Info.plist"; sourceTree = "<group>"; };
 		B215AE36153688D900B07BEF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B215AE38153688D900B07BEF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		B215AE3A153688D900B07BEF /* Canvas-Prefix.pch */ = {isa = PBXFileReference; path = "Canvas-Prefix.pch"; sourceTree = "<group>"; };
-		B215AE3B153688D900B07BEF /* CanvasAppDelegate.h */ = {isa = PBXFileReference; path = CanvasAppDelegate.h; sourceTree = "<group>"; };
+		B215AE3A153688D900B07BEF /* Canvas-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Canvas-Prefix.pch"; sourceTree = "<group>"; };
+		B215AE3B153688D900B07BEF /* CanvasAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanvasAppDelegate.h; sourceTree = "<group>"; };
 		B215AE3C153688D900B07BEF /* CanvasAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanvasAppDelegate.m; sourceTree = "<group>"; };
 		B215AE3F153688D900B07BEF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		B215AE41153688D900B07BEF /* CanvasViewController.h */ = {isa = PBXFileReference; path = CanvasViewController.h; sourceTree = "<group>"; };
+		B215AE41153688D900B07BEF /* CanvasViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanvasViewController.h; sourceTree = "<group>"; };
 		B215AE42153688D900B07BEF /* CanvasViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanvasViewController.m; sourceTree = "<group>"; };
+		B215AE491536891A00B07BEF /* Canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Canvas.h; sourceTree = "<group>"; };
+		B215AE4A1536891A00B07BEF /* Canvas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Canvas.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +83,8 @@
 				B215AE3B153688D900B07BEF /* CanvasAppDelegate.h */,
 				B215AE3C153688D900B07BEF /* CanvasAppDelegate.m */,
 				B215AE3E153688D900B07BEF /* MainStoryboard.storyboard */,
+				B215AE491536891A00B07BEF /* Canvas.h */,
+				B215AE4A1536891A00B07BEF /* Canvas.m */,
 				B215AE41153688D900B07BEF /* CanvasViewController.h */,
 				B215AE42153688D900B07BEF /* CanvasViewController.m */,
 				B215AE33153688D900B07BEF /* Supporting Files */,
@@ -164,6 +169,7 @@
 				B215AE39153688D900B07BEF /* main.m in Sources */,
 				B215AE3D153688D900B07BEF /* CanvasAppDelegate.m in Sources */,
 				B215AE43153688D900B07BEF /* CanvasViewController.m in Sources */,
+				B215AE4B1536891A00B07BEF /* Canvas.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
