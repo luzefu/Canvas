@@ -16,6 +16,8 @@
 		B215AE40153688D900B07BEF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B215AE3E153688D900B07BEF /* MainStoryboard.storyboard */; };
 		B215AE43153688D900B07BEF /* CanvasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B215AE42153688D900B07BEF /* CanvasViewController.m */; };
 		B215AE4B1536891A00B07BEF /* Canvas.m in Sources */ = {isa = PBXBuildFile; fileRef = B215AE4A1536891A00B07BEF /* Canvas.m */; };
+		B215AE561538008700B07BEF /* CanvasSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = B215AE551538008700B07BEF /* CanvasSetting.m */; };
+		B215AE5A153803D300B07BEF /* canvasSettingBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B215AE59153803D300B07BEF /* canvasSettingBackground.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,9 @@
 		B215AE42153688D900B07BEF /* CanvasViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanvasViewController.m; sourceTree = "<group>"; };
 		B215AE491536891A00B07BEF /* Canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Canvas.h; sourceTree = "<group>"; };
 		B215AE4A1536891A00B07BEF /* Canvas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Canvas.m; sourceTree = "<group>"; };
+		B215AE541538008600B07BEF /* CanvasSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanvasSetting.h; sourceTree = "<group>"; };
+		B215AE551538008700B07BEF /* CanvasSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanvasSetting.m; sourceTree = "<group>"; };
+		B215AE59153803D300B07BEF /* canvasSettingBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = canvasSettingBackground.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +61,7 @@
 				B215AE32153688D900B07BEF /* Canvas */,
 				B215AE2B153688D900B07BEF /* Frameworks */,
 				B215AE29153688D900B07BEF /* Products */,
+				B215AE59153803D300B07BEF /* canvasSettingBackground.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,10 +89,12 @@
 				B215AE3B153688D900B07BEF /* CanvasAppDelegate.h */,
 				B215AE3C153688D900B07BEF /* CanvasAppDelegate.m */,
 				B215AE3E153688D900B07BEF /* MainStoryboard.storyboard */,
-				B215AE491536891A00B07BEF /* Canvas.h */,
-				B215AE4A1536891A00B07BEF /* Canvas.m */,
 				B215AE41153688D900B07BEF /* CanvasViewController.h */,
 				B215AE42153688D900B07BEF /* CanvasViewController.m */,
+				B215AE491536891A00B07BEF /* Canvas.h */,
+				B215AE4A1536891A00B07BEF /* Canvas.m */,
+				B215AE541538008600B07BEF /* CanvasSetting.h */,
+				B215AE551538008700B07BEF /* CanvasSetting.m */,
 				B215AE33153688D900B07BEF /* Supporting Files */,
 			);
 			path = Canvas;
@@ -156,6 +164,7 @@
 			files = (
 				B215AE37153688D900B07BEF /* InfoPlist.strings in Resources */,
 				B215AE40153688D900B07BEF /* MainStoryboard.storyboard in Resources */,
+				B215AE5A153803D300B07BEF /* canvasSettingBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,6 +179,7 @@
 				B215AE3D153688D900B07BEF /* CanvasAppDelegate.m in Sources */,
 				B215AE43153688D900B07BEF /* CanvasViewController.m in Sources */,
 				B215AE4B1536891A00B07BEF /* Canvas.m in Sources */,
+				B215AE561538008700B07BEF /* CanvasSetting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

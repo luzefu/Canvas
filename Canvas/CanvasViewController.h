@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Canvas.h"
+#import "CanvasSetting.h"
 
-@interface CanvasViewController : UIViewController
-
-@property (nonatomic,strong) IBOutlet UIView* imageView;
+@interface CanvasViewController : UIViewController <canvasSettingDelegate>
 
 - (IBAction)testButtonPressed;
+
 @end

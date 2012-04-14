@@ -61,7 +61,7 @@
 - (UIImageView*)unchangableImage
 {
     if (_unchangableImage == nil) {
-        _unchangableImage = [[UIImageView alloc]initWithFrame:self.frame];
+        _unchangableImage = [[UIImageView alloc]initWithFrame:self.bounds];
     }
     return _unchangableImage;
 }
@@ -69,7 +69,7 @@
 - (UIColor *)colorForStroke
 {
     if (_colorForStroke == nil) {
-        _colorForStroke = [UIColor blackColor];
+        _colorForStroke = [[UIColor alloc]initWithRed:0 green:0 blue:0 alpha:1];
     }
     return _colorForStroke;
 }
@@ -232,9 +232,9 @@
 {
     [self addSubview:self.unchangableImage];
     
-    UIGraphicsBeginImageContext(self.frame.size);
+    UIGraphicsBeginImageContext(self.bounds.size);
     CGContextRef context = UIGraphicsGetCurrentContext(); 
-    [self.unchangableImage.image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    [self.unchangableImage.image drawInRect:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
     
     /*---------SETTING UP ----------*/
     //CGContextSetLineWidth(context, self.radiusForStroke);
@@ -244,6 +244,7 @@
     CGContextSetAllowsAntialiasing(context, YES);
     CGContextSetBlendMode(context, kCGBlendModeNormal);
     [self.colorForStroke setStroke];
+    [self.colorForStroke setFill];
     
     /*---------START TO DRAW ----------*/
     if (self.isViewTouched == YES) {
