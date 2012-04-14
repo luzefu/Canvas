@@ -48,6 +48,7 @@
         _currentCanvas = [[Canvas alloc]initWithFrame:self.view.bounds];
     }
     _currentCanvas = [self.canvasArray objectAtIndex:self.currentCanvasIndex];
+    _currentCanvas.colorForStroke = self.colorForCanvas;
     return _currentCanvas;
 }
 
@@ -56,7 +57,23 @@
     if (_canvasSetting == nil) {
         _canvasSetting = [[CanvasSetting alloc]initWithFrame:CGRectMake(64, 0, 896, 128)];
     }
+    
+    CGColorRef color = [self.colorForCanvas CGColor];
+    int numComponents = CGColorGetNumberOfComponents(color);
+    if (numComponents == 4)
+    {
+        const CGFloat *components = CGColorGetComponents(color);
+        _canvasSetting.redController.value = components[0];
+        _canvasSetting.greenController.value = components[1];
+        _canvasSetting.blueController.value = components[2];
+        _canvasSetting.alphaController.value = components[3];
+    }
     return _canvasSetting;
+}
+
+- (void)setCanvasSetting:(CanvasSetting *)canvasSetting{
+    _canvasSetting = canvasSetting;
+    canvasSetting.canvasSettingDelegate = self;
 }
 
 - (UIColor*)colorForCanvas
@@ -67,10 +84,8 @@
     return _colorForCanvas;
 }
 
-- (void)setCanvasSetting:(CanvasSetting *)canvasSetting{
-    _canvasSetting = canvasSetting;
-    canvasSetting.canvasSettingDelegate = self;
-}
+
+/*-------------------METHODS---------------------*/
 
 - (void)achieveNewColor
 {
