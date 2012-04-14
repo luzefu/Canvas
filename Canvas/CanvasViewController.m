@@ -16,7 +16,10 @@
 @property (nonatomic,strong) UIColor* colorForCanvas;
 //important pointers
 @property (nonatomic) float currentCanvasIndex;
+//gesture recognizers
+
 @end
+
 
 @implementation CanvasViewController
 
@@ -56,17 +59,16 @@
 {
     if (_canvasSetting == nil) {
         _canvasSetting = [[CanvasSetting alloc]initWithFrame:CGRectMake(64, 0, 896, 128)];
-    }
-    
-    CGColorRef color = [self.colorForCanvas CGColor];
-    int numComponents = CGColorGetNumberOfComponents(color);
-    if (numComponents == 4)
-    {
-        const CGFloat *components = CGColorGetComponents(color);
-        _canvasSetting.redController.value = components[0];
-        _canvasSetting.greenController.value = components[1];
-        _canvasSetting.blueController.value = components[2];
-        _canvasSetting.alphaController.value = components[3];
+        CGColorRef color = [self.colorForCanvas CGColor];
+        int numComponents = CGColorGetNumberOfComponents(color);
+        if (numComponents == 4)
+        {
+            const CGFloat *components = CGColorGetComponents(color);
+            _canvasSetting.redController.value = components[0];
+            _canvasSetting.greenController.value = components[1];
+            _canvasSetting.blueController.value = components[2];
+            _canvasSetting.alphaController.value = components[3];
+        }
     }
     return _canvasSetting;
 }
@@ -95,7 +97,9 @@
     }else{
         self.currentCanvasIndex += self.canvasArray.count - 1;
     }
+    
     self.currentCanvas.colorForStroke = self.colorForCanvas;
+    
     if (self.currentCanvasIndex < self.canvasArray.count - 1) {
         self.currentCanvasIndex += 1;
     }else{
