@@ -10,7 +10,7 @@
 #import "Canvas.h"
 #import "CanvasSetting.h"
 
-@interface CanvasViewController : UIViewController <canvasSettingDelegate>
+@interface CanvasViewController : UIViewController <canvasSettingDelegate, canvasDelegate>
 
 - (IBAction)testButtonPressed;
 

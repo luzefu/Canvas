@@ -12,6 +12,7 @@
 @property (nonatomic,strong) NSArray* canvasArray;
 @property (nonatomic,strong) Canvas* currentCanvas;
 @property (nonatomic,strong) CanvasSetting* canvasSetting;
+@property (nonatomic) BOOL canvasSettingAppeared;
 //color setting for canvas
 @property (nonatomic,strong) UIColor* colorForCanvas;
 //important pointers
@@ -26,6 +27,7 @@
 @synthesize canvasArray = _canvasArray;
 @synthesize currentCanvas = _currentCanvas;
 @synthesize canvasSetting = _canvasSetting;
+@synthesize canvasSettingAppeared = _canvasSettingAppeared;
 //color setting for canvas
 @synthesize colorForCanvas = _colorForCanvas;
 //important pointers
@@ -52,6 +54,7 @@
     }
     _currentCanvas = [self.canvasArray objectAtIndex:self.currentCanvasIndex];
     _currentCanvas.colorForStroke = self.colorForCanvas;
+    _currentCanvas.delegate = self;
     return _currentCanvas;
 }
 
@@ -73,11 +76,6 @@
     return _canvasSetting;
 }
 
-- (void)setCanvasSetting:(CanvasSetting *)canvasSetting{
-    _canvasSetting = canvasSetting;
-    canvasSetting.canvasSettingDelegate = self;
-}
-
 - (UIColor*)colorForCanvas
 {
     if (_colorForCanvas == nil) {
@@ -88,7 +86,7 @@
 
 
 /*-------------------METHODS---------------------*/
-
+//canvassetting delegate
 - (void)achieveNewColor
 {
     self.colorForCanvas = self.canvasSetting.changedColor;
@@ -107,10 +105,20 @@
     }
 }
 
-- (void)refreshSettings
+//canvas delegate
+- (void)letSettingAppear
 {
-    //test canvassetting
-    [self.view addSubview:self.canvasSetting];
+    if (self.canvasSettingAppeared == NO) {
+        [self.view addSubview:self.canvasSetting];
+        self.canvasSettingAppeared = YES;
+    }
+}
+- (void)letSettingDisappear
+{
+    if (self.canvasSettingAppeared == YES) {
+        [self.canvasSetting removeFromSuperview];
+        self.canvasSettingAppeared = NO;
+    }
 }
 
 - (void)createLeftThumbnailWith:(Canvas*)canvas
@@ -140,7 +148,6 @@
         self.canvasArray = buffer.copy;
     }
     
-    [self refreshSettings];
     [self.view addSubview:self.currentCanvas];
     self.currentCanvas.frame = CGRectMake(self.view.bounds.size.width / 4, self.view.bounds.size.height / 4, self.view.bounds.size.width / 2, self.view.bounds.size.height / 2);
     self.currentCanvas.colorForStroke = self.colorForCanvas;
@@ -153,6 +160,11 @@
     }else{
         self.currentCanvasIndex -= self.canvasArray.count - 1;
     }
+}
+
+- (void)viewDidLoad
+{
+    self.canvasSetting.canvasSettingDelegate = self;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

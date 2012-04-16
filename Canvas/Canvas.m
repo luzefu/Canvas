@@ -28,10 +28,12 @@
 @end
 
 @implementation Canvas
+//canvas delegate
+@synthesize delegate = _delegate;
 //gesture recognization
 @synthesize gestureRecognizer = _gestureRecognizer;
 @synthesize isViewTouched = _isViewTouched;
-//need to be discuessed
+//image
 @synthesize unchangableImage = _unchangableImage;
 //points
 @synthesize currentPoint = _currentPoint;
@@ -54,6 +56,7 @@
 {
     if (_gestureRecognizer == nil) {
         _gestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];
+        [_gestureRecognizer addTarget:self action:@selector(callDelegateBy:)];
     }
     return _gestureRecognizer;
 }
@@ -82,12 +85,12 @@
     return _radiusForStroke;
 }
 
-- (void) setup{
+- (void)setup{
     self.contentMode = UIViewContentModeRedraw;
     [self addGestureRecognizer:self.gestureRecognizer];
 }
 
-- (void) awakeFromNib{
+- (void)awakeFromNib{
     [self setup];
 }
 
@@ -98,6 +101,21 @@
         [self setup];
     }
     return self;
+}
+
+- (void)callDelegateBy:(UIPanGestureRecognizer*)gesture
+{
+    if (gesture.numberOfTouches == 2) {
+        if (gesture.state == UIGestureRecognizerStateChanged) {
+            CGPoint velocity = [gesture velocityInView:self];
+            if (velocity.y > 0) {
+                [self.delegate letSettingAppear];
+            }
+            if (velocity.y < 0) {
+                [self.delegate letSettingDisappear];
+            }
+        }
+    }
 }
 
 -(CGPoint) midPointWithPoint1:(CGPoint) p1 Point2:(CGPoint) p2{
