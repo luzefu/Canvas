@@ -9,7 +9,9 @@
 #import "Canvas.h"
 
 @interface Canvas ()
-
+//gesture recognization
+@property (nonatomic,strong) UIPanGestureRecognizer* gestureRecognizer;
+//points
 @property (nonatomic) CGPoint currentPoint;
 @property (nonatomic) CGPoint previousPointOne;
 @property (nonatomic) CGPoint previousPointTwo;
@@ -19,10 +21,12 @@
 @property (nonatomic) CGPoint p1p2;
 @property (nonatomic) CGPoint p2p1;
 @property (nonatomic) CGPoint p2p2;
-
+//velocity of touches
 @property (nonatomic) CGFloat veloVector;
 @property (nonatomic) BOOL isVectorXNegative;
-
+//variables
+@property (nonatomic) CGFloat currentRadius;
+//is view touched
 @property (nonatomic) BOOL isViewTouched;
 
 @end
@@ -50,8 +54,12 @@
 @synthesize isVectorXNegative = _isVectorXNegative;
 //variables
 @synthesize colorForStroke = _colorForStroke;
-@synthesize radiusForStroke = _radiusForStroke;
-
+@synthesize maxRadiusForStroke = _maxRadiusForStroke;
+@synthesize minRadiusForStroke = _minRadiusForStroke;
+@synthesize currentRadius = _currentRadius;
+@synthesize autoRadiusChangingIsOff = _autoRadiusChangingIsOff;
+@synthesize radiusIncreaseWhenSpeedDecrease = _radiusIncreaseWhenSpeedDecrease;
+/*------------------- Properties --------------------*/
 - (UIPanGestureRecognizer*)gestureRecognizer
 {
     if (_gestureRecognizer == nil) {
@@ -77,14 +85,31 @@
     return _colorForStroke;
 }
 
-- (CGFloat)radiusForStroke
+- (CGFloat)maxRadiusForStroke
 {
-    if (_radiusForStroke == 0) {
-        _radiusForStroke = 2;
+    if (_maxRadiusForStroke <= 0) {
+        _maxRadiusForStroke = 10;
     }
-    return _radiusForStroke;
+    return _maxRadiusForStroke;
 }
 
+- (CGFloat)minRadiusForStroke
+{
+    if (_minRadiusForStroke <= 0) {
+        _minRadiusForStroke = 3;
+    }
+    return _minRadiusForStroke;
+}
+
+- (CGFloat)currentRadius
+{
+    if (_currentRadius <= 0) {
+        _currentRadius = 1;
+    }
+    return _currentRadius;
+}
+
+/*-------------------- Methods -------------------*/
 - (void)setup{
     self.contentMode = UIViewContentModeRedraw;
     [self addGestureRecognizer:self.gestureRecognizer];
@@ -103,6 +128,7 @@
     return self;
 }
 
+//delegate
 - (void)callDelegateBy:(UIPanGestureRecognizer*)gesture
 {
     if (gesture.numberOfTouches == 2) {
@@ -117,7 +143,7 @@
         }
     }
 }
-
+//get points of different types
 -(CGPoint) midPointWithPoint1:(CGPoint) p1 Point2:(CGPoint) p2{
     return CGPointMake((p1.x + p2.x) * 0.5, (p1.y + p2.y) * 0.5);
 }
@@ -126,27 +152,27 @@
 {
     if (self.veloVector > 0) {
         if (self.isVectorXNegative == NO) {
-            CGPoint derivedpt = CGPointMake(pt.x + self.radiusForStroke / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y - self.radiusForStroke / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
+            CGPoint derivedpt = CGPointMake(pt.x + self.currentRadius / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y - self.currentRadius / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
             return derivedpt;
         }else{
-            CGPoint derivedpt = CGPointMake(pt.x - self.radiusForStroke / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y + self.radiusForStroke / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
+            CGPoint derivedpt = CGPointMake(pt.x - self.currentRadius / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y + self.currentRadius / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
             return derivedpt;
         }
     }
     if (self.veloVector < 0) {
         if (self.isVectorXNegative == YES) {
-            CGPoint derivedpt = CGPointMake(pt.x + self.radiusForStroke / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y - self.radiusForStroke / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
+            CGPoint derivedpt = CGPointMake(pt.x + self.currentRadius / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y - self.currentRadius / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
             return derivedpt;
         }else{
-            CGPoint derivedpt = CGPointMake(pt.x - self.radiusForStroke / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y + self.radiusForStroke / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
+            CGPoint derivedpt = CGPointMake(pt.x - self.currentRadius / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y + self.currentRadius / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
             return derivedpt;
         }
     }
     if (self.veloVector == 0) {
         if (self.isVectorXNegative == NO) {
-            return CGPointMake(pt.x, pt.y - self.radiusForStroke / 2);
+            return CGPointMake(pt.x, pt.y - self.currentRadius / 2);
         }else{
-            return CGPointMake(pt.x, pt.y + self.radiusForStroke / 2);
+            return CGPointMake(pt.x, pt.y + self.currentRadius / 2);
         }
     }
 }
@@ -155,31 +181,31 @@
 {
     if (self.veloVector > 0) {
         if (self.isVectorXNegative == NO) {
-            CGPoint derivedpt = CGPointMake(pt.x - self.radiusForStroke / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y + self.radiusForStroke / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
+            CGPoint derivedpt = CGPointMake(pt.x - self.currentRadius / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y + self.currentRadius / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
             return derivedpt;
         }else{
-            CGPoint derivedpt = CGPointMake(pt.x + self.radiusForStroke / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y - self.radiusForStroke / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
+            CGPoint derivedpt = CGPointMake(pt.x + self.currentRadius / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y - self.currentRadius / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
             return derivedpt;
         }
     }
     if (self.veloVector < 0) {
         if (self.isVectorXNegative == YES) {
-            CGPoint derivedpt = CGPointMake(pt.x - self.radiusForStroke / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y + self.radiusForStroke / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
+            CGPoint derivedpt = CGPointMake(pt.x - self.currentRadius / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y + self.currentRadius / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
             return derivedpt;
         }else{
-            CGPoint derivedpt = CGPointMake(pt.x + self.radiusForStroke / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y - self.radiusForStroke / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
+            CGPoint derivedpt = CGPointMake(pt.x + self.currentRadius / (2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))), pt.y - self.currentRadius / (self.veloVector * 2 * sqrt(1 + 1 / (self.veloVector * self.veloVector))));
             return derivedpt;
         }
     }
     if (self.veloVector == 0) {
         if (self.isVectorXNegative == NO) {
-            return CGPointMake(pt.x, pt.y + self.radiusForStroke / 2);
+            return CGPointMake(pt.x, pt.y + self.currentRadius / 2);
         }else{
-            return CGPointMake(pt.x, pt.y - self.radiusForStroke / 2);
+            return CGPointMake(pt.x, pt.y - self.currentRadius / 2);
         }
     }
 }
-
+//handle gesture
 - (void)pan:(UIPanGestureRecognizer *)gesture
 {
     if (gesture.numberOfTouches == 1) {
@@ -201,17 +227,31 @@
                 self.isVectorXNegative = YES;
             CGFloat v = sqrt(velocity.x*velocity.x + velocity.y * velocity.y);
             
-#define MIN_RADIUS 3
-#define MAX_RADIUS 10
+#define MIN_RADIUS self.minRadiusForStroke
+#define MAX_RADIUS self.maxRadiusForStroke
 #define TRIGGER_SPEED 500
 #define LIMIT_SPEED 3300
-            
-            if (v <= TRIGGER_SPEED) {
-                self.radiusForStroke = MIN_RADIUS;
-            }else if(v >= LIMIT_SPEED){
-                self.radiusForStroke = MAX_RADIUS;
+            if (self.autoRadiusChangingIsOff == NO) {
+                if (self.radiusIncreaseWhenSpeedDecrease == NO) {
+                    if (v <= TRIGGER_SPEED) {
+                        self.currentRadius = MIN_RADIUS;
+                    }else if(v >= LIMIT_SPEED){
+                        self.currentRadius = MAX_RADIUS;
+                    }else{
+                        self.currentRadius = (v - TRIGGER_SPEED)/LIMIT_SPEED * (MAX_RADIUS - MIN_RADIUS) + MIN_RADIUS;
+                    }
+                }else{
+                    if (v <= TRIGGER_SPEED) {
+                        self.currentRadius = MAX_RADIUS;
+                    }else if(v >= LIMIT_SPEED){
+                        self.currentRadius = MIN_RADIUS;
+                    }else{
+                        self.currentRadius = MAX_RADIUS - (LIMIT_SPEED - v)/LIMIT_SPEED * (MAX_RADIUS - MIN_RADIUS);
+                    }
+                }
+                
             }else{
-                self.radiusForStroke = (v - TRIGGER_SPEED)/LIMIT_SPEED * (MAX_RADIUS - MIN_RADIUS) + MIN_RADIUS;
+                self.currentRadius = self.minRadiusForStroke;
             }
             
             CGPoint location = [gesture locationInView:self];
@@ -233,7 +273,7 @@
         }
     }
 }
-
+//create bezier path
 - (CGMutablePathRef)createNewPathwithPreviousPointOne:(CGPoint)pt1 PreviousPointTwo:(CGPoint)pt2 CurrentPoint:(CGPoint)cpt
 {
     CGMutablePathRef newPath = CGPathCreateMutable();

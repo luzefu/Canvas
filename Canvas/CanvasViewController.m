@@ -17,7 +17,6 @@
 @property (nonatomic,strong) UIColor* colorForCanvas;
 //important pointers
 @property (nonatomic) float currentCanvasIndex;
-//gesture recognizers
 
 @end
 

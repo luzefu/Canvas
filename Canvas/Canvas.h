@@ -18,12 +18,12 @@
 @interface Canvas : UIView
 //canvas delegate
 @property (nonatomic,strong) IBOutlet id <canvasDelegate> delegate;
-//gesture recognization
-@property (nonatomic,strong) UIPanGestureRecognizer* gestureRecognizer;
-- (void)pan:(UIPanGestureRecognizer *)gesture;
 //variables
 @property (nonatomic,strong) UIColor* colorForStroke;
-@property (nonatomic) CGFloat radiusForStroke;
+@property (nonatomic) CGFloat maxRadiusForStroke;
+@property (nonatomic) CGFloat minRadiusForStroke;
+@property (nonatomic) BOOL autoRadiusChangingIsOff;
+@property (nonatomic) BOOL radiusIncreaseWhenSpeedDecrease;
 //image
 @property (nonatomic,strong) UIImageView* unchangableImage;
 
