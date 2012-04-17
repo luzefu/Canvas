@@ -15,9 +15,9 @@
 
 @end
 
-@interface Canvas : UIView
+@interface Canvas : UIView 
 //canvas delegate
-@property (nonatomic,strong) IBOutlet id <canvasDelegate> delegate;
+@property (nonatomic,weak) IBOutlet id <canvasDelegate> delegate;
 //variables
 @property (nonatomic,strong) UIColor* colorForStroke;
 @property (nonatomic) CGFloat maxRadiusForStroke;
