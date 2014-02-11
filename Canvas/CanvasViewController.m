@@ -148,11 +148,11 @@
     }
     
     [self.view addSubview:self.currentCanvas];
-    self.currentCanvas.frame = CGRectMake(self.view.bounds.size.width / 4, self.view.bounds.size.height / 4, self.view.bounds.size.width / 2, self.view.bounds.size.height / 2);
+    self.currentCanvas.frame = CGRectMake(self.view.bounds.size.width / 8, self.view.bounds.size.height / 8, self.view.bounds.size.width / 8 * 6, self.view.bounds.size.height / 8 * 6);
     self.currentCanvas.colorForStroke = self.colorForCanvas;
     
-    [self createLeftThumbnailWith:self.currentCanvas];
-    [self createRightThumbnailWith:self.currentCanvas];
+    //[self createLeftThumbnailWith:self.currentCanvas];
+    //[self createRightThumbnailWith:self.currentCanvas];
     
     if (self.currentCanvasIndex < self.canvasArray.count - 1) {
         self.currentCanvasIndex += 1;
